@@ -25,5 +25,5 @@ jobs:
       run: ruff check .        # Ejecuta Ruff para revisar estilo y errores de linting
     - name: Test with pytest
       working-directory: src   # Define que pytest se ejecuta en la carpeta src
-      run: pytest tests_calculator.py   # Ejecuta las pruebas unitarias definida_
+      run: pytest test_calculator.py   # Ejecuta las pruebas unitarias definida_
 
