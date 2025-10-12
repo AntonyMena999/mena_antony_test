@@ -1,0 +1,29 @@
+name: Test an Build   # Nombre del workflow que se mostrará en GitHub Actions
+
+on:
+  push:
+    branches: [ "master" ]   # Dispara este workflow cada vez que haya un push a la rama master
+
+permissions:
+  contents: read   # Permisos que tendrá la acción, en este caso solo lectura de contenido del repositorio
+
+jobs:
+  build:   # Nombre del job principal que realizará el workflow
+
+    runs-on: ubuntu-latest   # Sistema operativo del runner donde se ejecutarán los pasos
+
+    steps:   # Pasos que se ejecutarán en el job
+    - uses: actions/checkout@v4   # Paso para clonar el repositorio en el runner
+    - name: Set up Python 3.12    # Nombre descriptivo del paso
+      uses: actions/setup-python@v3   
+      with:
+        python-version: "3.12"   # Versión de Python que se instalará
+    - name: Install dependencies
+      run: pip install -r src/requirements.txt   # Instala las dependencias listadas en requirements.txt
+    - name: Check linting
+      working-directory: src   # Define que este comando se ejecuta desde la carpeta src
+      run: ruff check .        # Ejecuta Ruff para revisar estilo y errores de linting
+    - name: Test with pytest
+      working-directory: src   # Define que pytest se ejecuta en la carpeta src
+      run: pytest tests_calculator.py   # Ejecuta las pruebas unitarias definida_
+
